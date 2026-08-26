@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Disease Diagnosis System</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            min-height: 100vh;
+            background-image: url('/static/bg.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 10, 30, 0.78);
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(0, 180, 100, 0.15);
+            border: 1px solid #00c96e;
+            color: #00ff99;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2.6rem;
+            color: #ffffff;
+            text-shadow: 0 0 25px rgba(0,150,255,0.8);
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        p.tagline {
+            color: #a0c4ff;
+            font-size: 1.05rem;
+            max-width: 550px;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 16px 36px;
+            font-size: 1.05rem;
+            font-weight: bold;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: all 0.3s;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #1a6fdb, #0d4ea6);
+            color: white;
+            box-shadow: 0 4px 20px rgba(0,100,255,0.3);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #2080ff, #1560c0);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.08);
+            color: #a0c4ff;
+            border: 1px solid rgba(255,255,255,0.25);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.15);
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        .about-link {
+            margin-top: 30px;
+        }
+
+        .about-link a {
+            color: #7090b0;
+            text-decoration: none;
+            font-size: 0.9rem;
+            border-bottom: 1px solid rgba(112,144,176,0.3);
+        }
+
+        .about-link a:hover { color: #a0c4ff; }
+
+        .disclaimer {
+            color: #7090b0;
+            font-size: 0.78rem;
+            margin-top: 40px;
+            max-width: 500px;
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 1.9rem; }
+            .btn-row { flex-direction: column; width: 100%; max-width: 300px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="overlay"></div>
+
+<div class="container">
+    <div class="badge">🩺 AI-Powered Healthcare Assistant</div>
+    <h1>AI Disease Diagnosis System</h1>
+    <p class="tagline">Select your symptoms and receive an instant, AI-generated disease prediction with severity insight — built to assist, not replace, professional medical advice.</p>
+
+    <div class="btn-row">
+        <a href="{{ url_for('login') }}" class="btn btn-primary">🔐 Login</a>
+        <a href="{{ url_for('register') }}" class="btn btn-secondary">📝 Register</a>
+    </div>
+
+    <div class="about-link">
+        <a href="{{ url_for('about') }}">ℹ️ Learn more about this system</a>
+    </div>
+
+    <p class="disclaimer">⚠️ This system provides AI-assisted predictions and is not a substitute for professional medical diagnosis.</p>
+</div>
+
+</body>
+</html>

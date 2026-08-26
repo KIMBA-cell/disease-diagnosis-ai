@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login — AI Disease Diagnosis System</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            min-height: 100vh;
+            background-image: url('/static/bg.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 10, 30, 0.80); z-index: 0;
+        }
+        .container {
+            position: relative; z-index: 1; min-height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+            padding: 30px 20px;
+        }
+        .card {
+            background: rgba(255,255,255,0.07);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 16px;
+            padding: 40px 34px;
+            width: 100%;
+            max-width: 400px;
+        }
+        h1 {
+            color: #ffffff; font-size: 1.6rem; text-align: center;
+            margin-bottom: 6px; text-shadow: 0 0 15px rgba(0,150,255,0.6);
+        }
+        p.sub { color: #a0c4ff; text-align: center; font-size: 0.9rem; margin-bottom: 26px; }
+        .flash {
+            padding: 10px 14px; border-radius: 8px; font-size: 0.88rem;
+            margin-bottom: 18px; text-align: center;
+        }
+        .flash.error {
+            background: rgba(255,50,50,0.15); border: 1px solid rgba(255,100,100,0.4); color: #ff9b9b;
+        }
+        .flash.success {
+            background: rgba(0,180,100,0.15); border: 1px solid #00c96e; color: #00ff99;
+        }
+        label {
+            display: block; color: #a0c4ff; font-size: 0.85rem;
+            margin-bottom: 6px; margin-top: 16px;
+        }
+        input {
+            width: 100%; padding: 12px 14px;
+            background: rgba(0,20,50,0.5);
+            border: 1px solid rgba(100,160,255,0.3);
+            border-radius: 8px; color: #ffffff; font-size: 0.95rem; outline: none;
+        }
+        input:focus { border-color: #00d4ff; }
+        .password-wrapper { position: relative; }
+        .password-wrapper input { padding-right: 42px; }
+        .toggle-eye {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 1.1rem;
+            user-select: none;
+        }
+        .btn-submit {
+            width: 100%; margin-top: 26px; padding: 14px;
+            background: linear-gradient(135deg, #1a6fdb, #0d4ea6);
+            color: white; font-size: 1rem; font-weight: bold;
+            border: none; border-radius: 10px; cursor: pointer; transition: all 0.3s;
+        }
+        .btn-submit:hover { background: linear-gradient(135deg, #2080ff, #1560c0); }
+        .switch-link { text-align: center; margin-top: 20px; color: #7090b0; font-size: 0.88rem; }
+        .switch-link a { color: #00d4ff; text-decoration: none; }
+        .home-link {
+            display: block; text-align: center; margin-top: 14px;
+            color: #7090b0; font-size: 0.82rem; text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="overlay"></div>
+
+<div class="container">
+    <div class="card">
+        <h1>🔐 Welcome Back</h1>
+        <p class="sub">Log in to access the diagnosis tool</p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endwith %}
+
+        <form method="POST" action="{{ url_for('login') }}">
+            <label>Username</label>
+            <input type="text" name="username" required>
+
+            <label>Password</label>
+            <div class="password-wrapper">
+                <input type="password" name="password" id="passwordField" required>
+                <span class="toggle-eye" onclick="togglePassword()">👁️</span>
+            </div>
+
+            <button type="submit" class="btn-submit">Login</button>
+        </form>
+
+        <div class="switch-link">
+            Don't have an account? <a href="{{ url_for('register') }}">Register here</a>
+        </div>
+        <a href="{{ url_for('home') }}" class="home-link">← Back to Home</a>
+    </div>
+</div>
+
+<script>
+    function togglePassword() {
+        const field = document.getElementById('passwordField');
+        field.type = field.type === 'password' ? 'text' : 'password';
+    }
+</script>
+
+</body>
+</html>
