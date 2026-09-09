@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from dotenv import load_dotenv
 import pandas as pd
@@ -213,9 +213,6 @@ model = VotingClassifier(
 
 model.fit(X_train, y_train)
 
-# Evaluated on a genuinely separate held-out test set (test_dataset.csv),
-# not a random split of the training data. This avoids the data leakage
-# that occurs because the training data contains many duplicate rows.
 y_pred = model.predict(X_test)
 accuracy = round(accuracy_score(y_test, y_pred) * 100, 2)
 
@@ -314,17 +311,11 @@ def logout():
     return redirect(url_for("home"))
 
 # =========================
-# PREDICTION ROUTE (PROTECTED)
+# PREDICTION ROUTE (PROTECTED) — SYMPTOM FORM ONLY
 # =========================
 @app.route("/predict", methods=["GET", "POST"])
 @login_required
 def predict():
-    prediction = None
-    description = None
-    severity = None
-    confidence = None
-    precaution = None
-
     if request.method == "POST":
         user_input = []
         for symptom in symptom_names:
@@ -332,29 +323,54 @@ def predict():
             user_input.append(1 if value == "Yes" else 0)
 
         if sum(user_input) == 0:
-            prediction = "NO_SYMPTOMS"
-        else:
-            input_data = pd.DataFrame([user_input], columns=symptom_names)
+            flash("Please select at least one symptom before predicting.", "error")
+            return redirect(url_for("predict"))
 
-            raw_prediction = str(model.predict(input_data)[0]).strip()
-            prediction = label_corrections.get(raw_prediction, raw_prediction)
+        input_data = pd.DataFrame([user_input], columns=symptom_names)
 
-            probabilities = model.predict_proba(input_data)[0]
-            confidence = round(max(probabilities) * 100, 1)
+        raw_prediction = str(model.predict(input_data)[0]).strip()
+        prediction = label_corrections.get(raw_prediction, raw_prediction)
 
-            description = disease_info.get(prediction,
-                "This disease was predicted by the AI model. Please consult a doctor for more information.")
-            severity = disease_severity.get(prediction, "Moderate")
-            precaution = disease_precautions.get(prediction,
-                "Please consult a qualified medical doctor for appropriate guidance.")
+        probabilities = model.predict_proba(input_data)[0]
+        confidence = round(max(probabilities) * 100, 1)
 
-    return render_template("predict.html",
-                           symptoms=symptom_names,
-                           prediction=prediction,
-                           description=description,
-                           severity=severity,
-                           confidence=confidence,
-                           precaution=precaution,
+        description = disease_info.get(prediction,
+            "This disease was predicted by the AI model. Please consult a doctor for more information.")
+        severity = disease_severity.get(prediction, "Moderate")
+        precaution = disease_precautions.get(prediction,
+            "Please consult a qualified medical doctor for appropriate guidance.")
+
+        # Store the result in the session so it can be displayed on a separate page
+        session["last_result"] = {
+            "prediction": prediction,
+            "description": description,
+            "severity": severity,
+            "confidence": confidence,
+            "precaution": precaution,
+        }
+
+        return redirect(url_for("result"))
+
+    return render_template("predict.html", symptoms=symptom_names, accuracy=accuracy)
+
+# =========================
+# RESULT ROUTE (PROTECTED) — SEPARATE RESULT PAGE
+# =========================
+@app.route("/result")
+@login_required
+def result():
+    result_data = session.get("last_result")
+
+    if not result_data:
+        flash("No prediction found. Please select your symptoms first.", "error")
+        return redirect(url_for("predict"))
+
+    return render_template("result.html",
+                           prediction=result_data["prediction"],
+                           description=result_data["description"],
+                           severity=result_data["severity"],
+                           confidence=result_data["confidence"],
+                           precaution=result_data["precaution"],
                            accuracy=accuracy)
 
 # =========================

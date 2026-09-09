@@ -20,9 +20,6 @@
             --search-bg: rgba(0,20,50,0.5);
             --item-bg: rgba(255,255,255,0.05);
             --item-border: rgba(255,255,255,0.08);
-            --result-bg: rgba(0,30,80,0.6);
-            --result-border: rgba(0,150,255,0.4);
-            --desc-bg: rgba(255,255,255,0.05);
         }
 
         [data-theme="light"] {
@@ -38,9 +35,6 @@
             --search-bg: #ffffff;
             --item-bg: rgba(13,78,166,0.05);
             --item-border: rgba(13,78,166,0.1);
-            --result-bg: #ffffff;
-            --result-border: rgba(13,78,166,0.3);
-            --desc-bg: rgba(13,78,166,0.05);
         }
 
         body {
@@ -160,6 +154,12 @@
             background: rgba(0,180,100,0.15);
             border: 1px solid #00c96e;
             color: #00c96e;
+        }
+
+        .flash.error {
+            background: rgba(255,50,50,0.15);
+            border: 1px solid rgba(255,100,100,0.4);
+            color: #ff9b9b;
         }
 
         .header {
@@ -293,7 +293,7 @@
         }
 
         [data-theme="light"] .symptom-item select {
-            color: #ffffff;
+            color: #0a2540;
         }
 
         .button-row {
@@ -376,178 +376,10 @@
             letter-spacing: 1px;
         }
 
-        .result-card {
-            background: var(--result-bg);
-            backdrop-filter: blur(12px);
-            border: 1px solid var(--result-border);
-            border-radius: 16px;
-            padding: 30px;
-            text-align: center;
-            margin-top: 24px;
-        }
-
-        .result-label {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-        }
-
-        .result-disease {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--accent);
-            text-shadow: 0 0 15px rgba(0,200,255,0.3);
-            margin-bottom: 10px;
-        }
-
-        .confidence-badge {
-            display: inline-block;
-            background: rgba(0,150,255,0.15);
-            border: 1px solid var(--accent);
-            color: var(--accent);
-            padding: 5px 16px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            margin-bottom: 16px;
-        }
-
-        .severity-mild, .severity-moderate, .severity-high {
-            display: inline-block;
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            margin-bottom: 16px;
-        }
-
-        .severity-mild {
-            background: rgba(0,180,100,0.15);
-            border: 1px solid #00c96e;
-            color: #00a86b;
-        }
-
-        .severity-moderate {
-            background: rgba(255,180,0,0.15);
-            border: 1px solid #ffb300;
-            color: #c98a00;
-        }
-
-        .severity-high {
-            background: rgba(255,50,50,0.15);
-            border: 1px solid #ff4444;
-            color: #d63333;
-        }
-
-        .severity-warning {
-            background: rgba(255,50,50,0.1);
-            border: 1px solid rgba(255,100,100,0.3);
-            border-radius: 8px;
-            padding: 10px 16px;
-            color: #d63333;
-            font-size: 0.9rem;
-            margin-bottom: 16px;
-        }
-
-        .result-divider {
-            border: none;
-            border-top: 1px solid var(--card-border);
-            margin: 16px 0;
-        }
-
-        .result-description, .result-precaution {
-            color: var(--text-primary);
-            font-size: 0.95rem;
-            line-height: 1.7;
-            text-align: left;
-            background: var(--desc-bg);
-            padding: 16px;
-            border-radius: 10px;
-            border-left: 4px solid var(--accent);
-            margin-bottom: 12px;
-        }
-
-        .result-precaution {
-            border-left-color: #00c96e;
-        }
-
-        .section-label {
-            color: var(--text-secondary);
-            font-size: 0.78rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 6px;
-            text-align: left;
-        }
-
-        .warning-card {
-            background: rgba(80,0,0,0.5);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,100,100,0.4);
-            border-radius: 16px;
-            padding: 30px;
-            text-align: center;
-            margin-top: 24px;
-        }
-
-        .warning-title {
-            color: #ff6b6b;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-        }
-
-        .warning-message {
-            color: #ffaaaa;
-            font-size: 1.1rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .warning-sub {
-            color: #cc8888;
-            font-size: 0.85rem;
-        }
-
-        .disclaimer {
-            color: var(--text-muted);
-            font-size: 0.78rem;
-            margin-top: 16px;
-        }
-
-        .btn-download {
-            margin-top: 16px;
-            padding: 12px 24px;
-            background: var(--item-bg);
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            font-weight: bold;
-            border: 1px solid var(--card-border);
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .btn-download:hover {
-            background: rgba(255,255,255,0.15);
-            color: var(--text-primary);
-        }
-
         @media (max-width: 650px) {
             .symptoms-grid { grid-template-columns: 1fr; }
             .header h1 { font-size: 1.5rem; }
-            .result-disease { font-size: 1.5rem; }
             .button-row { flex-direction: column; }
-        }
-
-        @media print {
-            .navbar, .card:has(.symptoms-grid), .button-row, .btn-download, .welcome-banner { display: none; }
-            body { background: white; }
-            .overlay { display: none; }
-            .result-card { border: 1px solid #333; background: white; }
-            .result-description, .result-precaution { background: #f5f5f5; color: #333; }
         }
     </style>
 </head>
@@ -617,54 +449,9 @@
         </div>
     </form>
 
-    <div id="result-section">
-
-        {% if prediction == "NO_SYMPTOMS" %}
-        <div class="warning-card">
-            <div class="warning-title">⚠️ No Symptoms Selected</div>
-            <div class="warning-message">Please select at least one symptom before predicting!</div>
-            <p class="warning-sub">Select Yes on any symptom above and try again.</p>
-        </div>
-
-        {% elif prediction %}
-        <div class="result-card" id="printableResult">
-            <div class="result-label">⚕️ Diagnosis Result for {{ current_user.username }}</div>
-            <div class="result-disease">🦠 {{ prediction }}</div>
-
-            {% if confidence %}
-            <div class="confidence-badge">🎯 Confidence: {{ confidence }}%</div>
-            {% endif %}
-            <br>
-
-            {% if severity == "Mild" %}
-                <div class="severity-mild">🟢 Severity: Mild</div>
-            {% elif severity == "Moderate" %}
-                <div class="severity-moderate">⚠️ Severity: Moderate — Consider visiting a medical doctor.</div>
-            {% elif severity == "High" %}
-                <div class="severity-high">🔴 Severity: High</div>
-                <div class="severity-warning">🚨 Please visit a medical doctor immediately!</div>
-            {% endif %}
-
-            <hr class="result-divider">
-
-            <div class="section-label">📌 About this condition</div>
-            <div class="result-description">{{ description }}</div>
-
-            {% if precaution %}
-            <div class="section-label">🛡️ Recommended precautions</div>
-            <div class="result-precaution">{{ precaution }}</div>
-            {% endif %}
-
-            <p class="disclaimer">⚠️ This prediction is AI-generated and should not replace professional medical advice.</p>
-            <button type="button" class="btn-download" onclick="window.print()">📄 Download / Print Report</button>
-        </div>
-        {% endif %}
-
-    </div>
 </div>
 
 <script>
-    // ===== THEME TOGGLE =====
     function applyTheme(theme) {
         document.documentElement.setAttribute('data-theme', theme);
         const btn = document.getElementById('themeToggleBtn');
@@ -683,7 +470,6 @@
         applyTheme(saved);
     })();
 
-    // ===== SYMPTOM COUNTER =====
     function updateSymptomCount(selectEl) {
         const item = selectEl.closest('.symptom-item');
         item.classList.toggle('is-yes', selectEl.value === 'Yes');
@@ -697,27 +483,14 @@
         document.getElementById('symptomCounter').textContent = count + (count === 1 ? ' symptom selected' : ' symptoms selected');
     }
 
-    // ===== LOADING OVERLAY =====
     document.getElementById('diagnosisForm').addEventListener('submit', function() {
         document.getElementById('loadingOverlay').classList.add('active');
     });
-
-    var hasPrediction = "{{ prediction }}" !== "None" && "{{ prediction }}" !== "";
-    if (hasPrediction) {
-        window.addEventListener('load', function() {
-            setTimeout(function() {
-                document.getElementById('result-section').scrollIntoView({
-                    behavior: 'smooth'
-                });
-            }, 500);
-        });
-    }
 
     function resetForm() {
         window.location.href = '{{ url_for("predict") }}';
     }
 
-    // ===== SYMPTOM SEARCH =====
     function filterSymptoms() {
         const query = document.getElementById('symptomSearch').value.toLowerCase();
         const items = document.querySelectorAll('#symptomsGrid .symptom-item');
